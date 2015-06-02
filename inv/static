@@ -1,0 +1,5 @@
+[xen_servers]
+xen.peteches.co.uk ansible_ssh_port=24
+
+[vpn_servers]
+vpn.peteches.co.uk

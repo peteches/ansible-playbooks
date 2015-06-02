@@ -1,0 +1,12 @@
+---
+
+dnsmasq_configs:
+  - name: tftp
+    dict:
+      enable-tftp: true
+      tftp-root: /var/lib/tftpboot/
+      dhcp-boot: pxelinux.0
+  - name: dhcp
+    dict:
+      dhcp-range: 192.168.122.50,192.168.122.150,12h
+

@@ -8,5 +8,5 @@ dnsmasq_configs:
       dhcp-boot: pxelinux.0
   - name: dhcp
     dict:
-      dhcp-range: 192.168.122.50,192.168.122.150,12h
+      dhcp-range: "{{ networks['build'].cidr | ipaddr('1') | ipaddr('address') }},{{ networks['build'].cidr | ipaddr('30') | ipaddr('address') }},12h"
 

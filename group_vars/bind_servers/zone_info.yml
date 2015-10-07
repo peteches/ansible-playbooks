@@ -1,0 +1,288 @@
+  zones:
+
+    - zone: peteches.co.uk
+      default_ttl: 300
+      nameserver: ns1.peteches.co.uk.
+      nameserver_ip: "{{ hostvars[groups['bind_masters'][0]].ansible_default_ipv4.address }}"
+      email: dns.peteches.co.uk.
+      soa:
+          serial: "{{ ansible_date_time.epoch }}"
+          refresh: 10800
+          retry: 3600
+          expire: 604800
+          minimum: 300
+      rr:
+        - dnsname: ""
+          type: NS
+          value: ns1.peteches.co.uk.
+        - dnsname: ""
+          type: NS
+          value: ns2.peteches.co.uk.
+        - dnsname: ""
+          type: MX
+          value: "10 mail.peteches.co.uk."
+        - dnsname: ""
+          type: MX
+          value: "20 smtp.peteches.co.uk."
+        - dnsname: ""
+          type: NS
+          value: ns1.peteches.co.uk.
+        - dnsname: ""
+          type: NS
+          value: ns2.peteches.co.uk.
+        - dnsname: ""
+          type: MX
+          value: "10 mail.peteches.co.uk."
+        - dnsname: ""
+          type: TXT
+          value: "v=spf1 mx:mail.peteches.co.uk -all"
+        - dnsname: smtp.peteches.co.uk.
+          type: A
+          value: 37.139.17.145
+        - dnsname: ithaqua.peteches.co.uk.
+          type: A
+          value: 178.62.174.22
+        - dnsname: mi-go.peteches.co.uk.
+          type: A
+          value: 37.139.17.145
+        - dnsname: old-one.peteches.co.uk.
+          type: A
+          value: 188.226.231.236
+        - dnsname: ns1.peteches.co.uk.
+          type: A
+          value: 188.226.231.236
+        - dnsname: ns2.peteches.co.uk.
+          type: A
+          value: 188.226.231.236
+        - dnsname: mail.peteches.co.uk.
+          type: A
+          value: 188.226.231.236
+        - dnsname: git.peteches.co.uk.
+          type: CNAME
+          value: mi-go.peteches.co.uk.
+        - dnsname: houston.peteches.co.uk.
+          type: CNAME
+          value: mi-go.peteches.co.uk.
+        - dnsname: owncloud.peteches.co.uk.
+          type: CNAME
+          value: mi-go.peteches.co.uk.
+        - dnsname: spacewalk.peteches.co.uk.
+          type: CNAME
+          value: mi-go.peteches.co.uk.
+        - dnsname: www.peteches.co.uk.
+          type: CNAME
+          value: mi-go.peteches.co.uk.
+        - dnsname: _keybase.peteches.co.uk.
+          type: TXT
+          value: "keybase-site-verification=BB6UjgywrL9hLSyiTSJUkANJA5VhiCMcXUo8KfarrYw"
+        - dnsname: nyarlothotep.lo.peteches.co.uk.
+          type: A
+          value: 192.168.1.72
+        - dnsname: yig.lo.peteches.co.uk.
+          type: CNAME
+          value: 192.168.1.100
+        - dnsname: azathoth.vpn.peteches.co.uk.
+          type: A
+          value: 10.8.0.34
+        - dnsname: mi-go.vpn.peteches.co.uk.
+          type: CNAME
+          value: 10.8.0.1
+        - dnsname: nyarlothep.vpn.peteches.co.uk.
+          type: A
+          value: 10.8.0.100
+        - dnsname: yig.vpn.peteches.co.uk.
+          type: A
+          value: 10.8.0.38
+
+    - zone: start64.co.uk
+      default_ttl: 86400
+      nameserver: ns1.start64.co.uk.
+      nameserver_ip: 188.226.231.236
+      email: admin.start64.co.uk.
+      soa:
+          serial: "{{ ansible_date_time.epoch }}"
+          refresh: 28800
+          retry: 7200
+          expire: 604800
+          minimum: 300
+      rr:
+        - dnsname: ""
+          type: NS
+          value: ns1.start64.co.uk.
+        - dnsname: ""
+          type: NS
+          value: ns2.start64.co.uk.
+        - dnsname: "@"
+          type: A
+          value: 86.1.130.134
+        - dnsname: smtp.start64.co.uk.
+          type: A
+          value: 81.97.174.207
+        - dnsname: 365.start64.co.uk.
+          type: A
+          value: 81.97.174.207
+        - dnsname: zenith.start64.co.uk.
+          type: A
+          value: 81.97.174.207
+        - dnsname: json.start64.co.uk.
+          type: A
+          value: 192.168.0.15
+        - dnsname: sip.start64.co.uk.
+          type: A
+          value: 86.1.128.8
+        - dnsname: zktravel.start64.co.uk.
+          type: A
+          value: 79.77.152.141
+        - dnsname: ns1.start64.co.uk.
+          type: A
+          value: 188.226.231.236
+        - dnsname: ns2.start64.co.uk.
+          type: A
+          value: 178.62.174.22
+        - dnsname: mobilemail.start64.co.uk.
+          type: CNAME
+          value: mobilemail-v01.prod.mesa1.secureserver.net.
+        - dnsname: pda.start64.co.uk.
+          type: CNAME
+          value: mobilemail-v01.prod.mesa1.secureserver.net.
+        - dnsname: email.start64.co.uk.
+          type: CNAME
+          value: email.secureserver.net.
+        - dnsname: imap.start64.co.uk.
+          type: CNAME
+          value: imap.secureserver.net.
+        - dnsname: mail.start64.co.uk.
+          type: CNAME
+          value: pop.secureserver.net.
+        - dnsname: pop.start64.co.uk.
+          type: CNAME
+          value: pop.secureserver.net.
+        - dnsname: ftp.start64.co.uk.
+          type: CNAME
+          value: "@"
+        - dnsname: webmail.start64.co.uk.
+          type: CNAME
+          value: webmail.secureserver.net.
+        - dnsname: e.start64.co.uk.
+          type: CNAME
+          value: email.secureserver.net.
+        - dnsname: cam.start64.co.uk.
+          type: CNAME
+          value: "@"
+        - dnsname: www.start64.co.uk.
+          type: CNAME
+          value: "@"
+        - dnsname: rdgateway01.start64.co.uk.
+          type: CNAME
+          value: "@"
+        - dnsname: gateway.start64.co.uk.
+          type: CNAME
+          value: "@"
+        - dnsname: "@"
+          type: MX
+          value: "0 smtp.start64.co.uk."
+        - dnsname: 365.start64.co.uk.
+          type: TXT
+          value: "MS=ms82395736"
+        - dnsname: "@"
+          type: TXT
+          value: "v=verifydomain MS=8922160"
+
+    - zone: milliespie.co.uk
+      default_ttl: 300
+      nameserver: ns1.milliespie.co.uk.
+      nameserver_ip: 188.226.231.236
+      email: milliespie.petemccabe.gb.net.
+      soa:
+          serial: "{{ ansible_date_time.epoch }}"
+          refresh: 10800
+          retry: 3600
+          expire: 604800
+          minimum: 300
+      rr:
+        - dnsname: ""
+          type: NS
+          value: ns1.peteches.co.uk.
+        - dnsname: ""
+          type: NS
+          value: ns2.peteches.co.uk.
+        - dnsname: "@"
+          type: A
+          value: 37.139.17.145
+        - dnsname: "@"
+          type: TXT
+          value: "v=spf1 mx:mail.milliespie.co.uk. -all"
+
+    - zone: milliespie.com
+      default_ttl: 300
+      nameserver: ns1.milliespie.com.
+      nameserver_ip: 188.226.231.236
+      email: milliespie.petemccabe.gb.net.
+      soa:
+          serial: "{{ ansible_date_time.epoch }}"
+          refresh: 10800
+          retry: 3600
+          expire: 604800
+          minimum: 300
+      rr:
+        - dnsname: ""
+          type: NS
+          value: ns1.peteches.co.uk.
+        - dnsname: ""
+          type: NS
+          value: ns2.peteches.co.uk.
+        - dnsname: "@"
+          type: A
+          value: 37.139.17.145
+        - dnsname: "@"
+          type: TXT
+          value: "v=spf1 mx:mail.milliespie.com. -all"
+
+    - zone: petemccabe.gb.net
+      default_ttl: 84600
+      email: dns.petemccabe.gb.net.
+      nameserver: ns1.peteches.co.uk.
+      nameserver_ip: 188.226.231.236
+      soa:
+          serial: "{{ ansible_date_time.epoch }}"
+          refresh: 10800
+          retry: 3600
+          expire: 604800
+          minimum: 300
+      rr:
+        - dnsname: ""
+          type: NS
+          value: ns1.petemccabe.gb.net.
+        - dnsname: ""
+          type: NS
+          value: ns2.petemccabe.gb.net.
+        - dnsname: "@"
+          type: MX
+          value: 10 mail.petemccabe.gb.net.
+        - dnsname: "@"
+          type: MX
+          value: 20 smtp.petemccabe.gb.net.
+        - dnsname: ns1.petemccabe.gb.net.
+          type: A
+          value: 188.226.231.236
+        - dnsname: ns2.petemccabe.gb.net.
+          type: A
+          value: 178.62.174.22
+        - dnsname: "@"
+          type: A
+          value: 37.139.17.145
+        - dnsname: imap.petemccabe.gb.net.
+          type: A
+          value: 37.139.17.145
+        - dnsname: mail.petemccabe.gb.net.
+          type: A
+          value: 37.139.17.145
+        - dnsname: smtp.petemccabe.gb.net.
+          type: A
+          value: 37.139.17.145
+        - dnsname: _keybase.petemccabe.gb.net.
+          type: TXT
+          value: keybase-site-verification=MZr1bNByFlqNQQ59EO42WIHMrEbSoR6vrxWWanFX8pI
+        - dnsname: "@"
+          type: TXT
+          value: "v=spf1 mx:mail.petemccabe.gb.net. -all"

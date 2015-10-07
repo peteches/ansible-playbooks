@@ -1,0 +1,486 @@
+---
+binddir: /var/named/
+
+named_config:
+  acls:
+    bogusnets:
+      - 0.0.0.0/8
+      - 192.0.2.0/24
+      - 224.0.0.0/3
+      - 172.16.0.0/12
+      - 192.168.0.0/16
+    peteches_vpn:
+      - "{{ networks.peteches_vpn.cidr }}"
+    bind_slaves:
+      - "{{ groups['bind_slaves'] | join(';\n\t') }}"
+
+  controls:
+    inet:
+      - ip: 127.0.0.1
+        port: 953
+        allow:
+          - 127.0.0.1/8
+        key_list:
+          - peteches
+          - rndc-key
+
+    unix:
+      - path: /var/run/named/cntrl.socket
+        perm: "0700"
+        owner:
+        group:
+        key_list:
+          - peteches
+
+  includes:
+    - /etc/rndc.key
+  tsig_keys:
+     peteches:
+       alg: hmac-sha512
+       secret: d6e77a45b3899682585392d4bd5c34595ccade4ad74d2177973d666b2332c740
+
+  logging:
+    channels:
+      default_debug:
+        - file "named.log" versions 5 size 10m
+        - severity dynamic
+      default_syslog:
+        - syslog daemon
+        - severity debug
+      default_null:
+        - "null"
+    categories:
+      default:
+        - default_syslog
+        - default_debug
+        - default_stderr
+
+  lwres:
+    - listen_on:
+      - 127.0.0.1 port 921
+      view: vpn
+      search:
+        - peteches.co.uk
+        - petemccabe.gb.net
+        - milliespie.com
+      ndots: 2
+
+  masters:
+    - name: bind_masters
+      list:
+        - "{% for host in groups['bind_masters'] %}
+            {{ hostvars[host][\"ansible_default_ipv4\"]['address'] ~ ' port 53 key peteches' }}
+          {% endfor %}"
+
+  options:
+    # misc options
+    attach-cache:
+    directory: /var/named/
+    key-directory: /etc/pki/named
+    tkey-gssapi-keytab:
+    tkey-gssapi-credential:
+    tkey-domain:
+    tkey-dhkey:
+    dump-file: named_dumpfile.db
+    memstatistics: yes
+    memstatistics-file: named_memstats
+    pid-file: /var/run/named/named.pid
+    recursing-file: named_recursing
+    statistics-file: named_stats
+    bindkeys-file: /etc/bind.keys
+    secroots-file: named_secroots
+    session-keyfile: /var/run/named/session.key
+    session-keyname: local-ddns
+    session-keyalg: hmac-sha512
+    port: 53
+    random-device: /dev/random
+    preferred-glue: NONE
+    root-delegation-only:
+      - de
+      - lv
+      - us
+      - museum
+    disable-algorithms:
+      - domain: .
+        algorithms:
+          - RSAMD5
+    dnssec-lookaside: auto
+    dnssec-must-be-secure:
+    dns64-server: name
+    dns64-contact: name
+    dns64:
+      # dns64 not needed but left stub in place as
+      # an example.
+      # - ipv6_prefix:   64:FF9B::/96
+      #   options:
+      #     clients:
+      #       - address_match_list
+      #     mapped:
+      #       - address_match_list
+      #     exclude:
+      #       - address_match_list
+      #     suffix: IPv6-address
+      #     recursive-only: yes_or_no
+      #     break-dnssec: yes_or_no
+    dnssec-update-mode:  maintain
+    zone-statistics: terse
+
+    # boolean options
+    allow-new-zones:  yes
+    auth-nxdomain: no
+    dialup: no
+    flush-zones-on-shutdown: no
+    minimal-responses: no
+    notify: yes
+    notify-to-soa: no
+    recursion: yes
+    request-nsid: no
+    # rfc2308-type1: no
+    provide-ixfr: no
+    request-ixfr: no
+    additional-from-auth: yes
+    additional-from-cache: yes
+    filter-aaaa-on-v4:  yes
+    ixfr-from-differences: no
+    multi-master: no
+    dnssec-enable: yes
+    dnssec-validation: auto
+    dnssec-accept-expired: no
+    managed-keys-directory: /etc/pki/dnssec
+    querylog: yes
+    # check-names has defaults set
+    # based on the zone type:
+    # master: fail
+    # slave:  warn
+    # and for answers recieved from queries: ignore
+    # I'm not going to add logic to do that when bind
+    # can do it better.
+    check-names:
+    check-dup-records:  fail
+    check-mx:  fail
+    check-wildcard: yes
+    check-integrity: yes
+    check-mx-cname: fail
+    check-srv-cname: fail
+    check-sibling: yes
+    check-spf: warn
+    zero-no-soa-ttl: yes
+    zero-no-soa-ttl-cache: no
+    update-check-ksk: yes
+    dnssec-dnskey-kskonly: yes
+    dnssec-loadkeys-interval: 60
+    try-tcp-refresh: yes
+    dnssec-secure-to-insecure: no
+
+    # Forwarding
+    forward: only
+    # empty list of forwarders disables forwarding.
+    forwarders:
+
+    # dual-stack opts
+    dual-stack-servers:
+       # again blanking to disable but leaving structure
+       # in place for reference
+       # port: ip_port
+       # servers:
+       #   - domain port 5543
+    # leaving blank as default is to only accept
+    # from the zones master. this would be a waste
+    # of time to code into ansible.
+
+    # access opts
+    allow-notify:
+    # leaving blank as default is
+    # to allow all.
+    allow-query:
+    # see above comment.
+    allow-query-on:
+    allow-query-cache:
+      - localnets
+      - localhost
+      - peteches_vpn
+    allow-query-cache-on:
+      - localnets
+      - localhost
+      - peteches_vpn
+    allow-recursion:
+      - localnets
+      - localhost
+      - peteches_vpn
+    # default to llow on any
+    allow-recursion-on:
+    # default is to deny all.
+    allow-update:
+      - none
+    allow-update-forwarding:
+      - none
+    allow-transfer:
+      - any
+    blackhole:
+      - bogusnets
+    filter-aaaa:
+      - any
+    # no-case-compress:
+    #   - none
+    resolver-query-timeout: 10
+
+    # interface opts
+    listen-on:
+      port: 53
+      list:
+        - localhost
+        - "{% if ansible_default_ipv4['address'] is defined %} {{ ansible_default_ipv4['address'] }}{% endif %}"
+    # listen-on-v6:
+    #   port: 53
+    #   list:
+    #     - "{% if ansible_default_ipv6['address'] is defined %} {{ ansible_default_ipv6['address'] }}{% endif %}"
+
+    # query address opts.
+    query-source: address {{ ansible_default_ipv4['address'] }} port *
+    # query-source-v6: "{% if ansible_default_ipv6['address'] is defined%}address {{ ansible_default_ipv6['address'] }} port *{% endif %}"
+    use-v4-udp-ports:
+      - range 1024 65535
+    # use-v6-udp-ports:
+    #   - range 1024 65535
+    # avoid mosh ports.
+    # avoid-v6-udp-ports:
+    #   - range 60001 60999
+    avoid-v4-udp-ports:
+      - range 60001 60999
+
+    # zone transfers
+    # No need to notify anyone else
+    also-notify:
+    max-transfer-time-in: 120
+    max-transfer-time-out: 120
+    max-transfer-idle-in: 60
+    max-transfer-idle-out: 60
+    serial-query-rate: 20
+    transfer-format: many-answers
+    transfers-in: 10
+    transfers-out: 10
+    transfers-per-ns: 2
+    transfer-source: '*'
+    # transfer-source-v6: ip6_addr  * port ip_port
+    alt-transfer-source:
+    # alt-transfer-source-v6:
+    use-alt-transfer-source: no
+    notify-source: "{{ ansible_default_ipv4['address'] }} port 53345"
+    # notify-source-v6: ip6_addr  * port ip_port
+
+    # OS limit opts
+    coresize: default
+    datasize: default
+    stacksize: default
+    files: unlimited
+
+    # Bind resource limit opts
+    max-journal-size: unlimited
+    recursive-clients: 1000
+    tcp-clients: 100
+    reserved-sockets: 512
+    max-cache-size: 0
+    tcp-listen-queue: 10
+
+    # periodic task opts
+    heartbeat-interval: 60
+    interface-interval: 0
+    # statistics-interval: 60
+
+    # sorting opts
+    sortlist:
+      - localnets
+    rrset-order:
+      - class IN type ANY name "*" order random
+
+    # tuning opts
+    lame-ttl: 600
+    max-ncache-ttl: 10800
+    max-cache-ttl: 604800
+    sig-validity-interval: 21 16
+    sig-signing-nodes: 100
+    sig-signing-signatures: 10
+    sig-signing-type: 65534
+    min-refresh-time: 300
+    max-refresh-time: 2419200
+    min-retry-time: 500
+    max-retry-time: 1209600
+    edns-udp-size: 4096
+    max-udp-size: 4096
+    masterfile-format: "{% if 'bind_slaves' in group_names %}raw{% else %}text{% endif %}"
+    clients-per-query: 10
+    max-clients-per-query: 100
+    max-recursion-depth: 7
+    max-recursion-queries: 50
+    notify-delay: 5
+    max-rsa-exponent-size: 4096
+
+    # server info zone class CHAOS
+    version: Bind of some description
+    hostname: hostname
+    server-id: hostname
+    empty-server:
+    empty-contact:
+    empty-zones-enable: yes
+    disable-empty-zone:
+
+    # section cache opts
+    acache-enable: yes
+    acache-cleaning-interval: 60
+    max-acache-size: 16M
+
+    # Content Filtering
+    deny-answer-addresses:
+      # list:
+      #   -  address_match_list
+      # exceptions:
+      #   -  namelist
+    deny-answer-aliases:
+      # list:
+      #   -  address_match_list
+      # exceptions:
+      #   -  namelist
+    response-policy:
+     # - name: zone_name
+     #   opts:
+     #     policy: given  disabled  passthru nxdomain  nodata  cname domain
+     #     recursive-only: yes_or_no
+     #     max-policy-ttl: number
+     #     break-dnssec: yes_or_no
+     #     min-ns-dots: number
+
+    # rate limit opts
+    rate-limit:
+      responses-per-second: 20
+      referrals-per-second: 20
+      nodata-per-second: 20
+      nxdomains-per-second: 20
+      errors-per-second: 20
+      all-per-second: 100
+      window: 15
+      log-only: no
+      qps-scale: 250
+      ipv4-prefix-length: 24
+      # ipv6-prefix-length: 56
+      slip: 3
+      exempt-clients:
+      max-table-size: 20000
+      min-table-size: 500
+
+  servers:
+    # Let the template handle it.
+    # but left the structure in place for reference
+    # - cidr: 127.0.0.1/24
+    #   opts:
+    #     bogus: no
+    #     provide-ixfr: no
+    #     request-ixfr: no
+    #     edns: yes
+    #     edns-udp-size: 4096
+    #     max-udp-size: 4096
+    #     # set by transfers-per-ns
+    #     transfers:
+    #     transfers-format: many-answers
+    #     keys:
+    #       - pet
+    #     transfer-source: '*'
+    #     transfer-source-v6: '*'
+    #     notify-source: '*'
+    #     notify-source-v6: '*'
+    #     query_source: '*'
+    #     query_source-v6: '*'
+    #     use-query-port-pool: yes_no
+    #     queryport-pool-ports: number
+    #     queryport-pool-updateinterval: number
+
+  stats_channels:
+    - listen: inet {{ ansible_default_ipv4['address'] }} port 8080
+      allowed:
+        - peteches_vpn
+
+  trusted_keys:
+    # used to insert new dnssec keys into the trust chain.
+    # - string number number number string
+
+  managed_keys:
+    # this is automatically set when dnssec-validation is set to auto
+    # - name initial-key flags protocol algorithm key-data
+
+  views:
+    - name: vpn
+      class: IN
+      options:
+        match-clients:
+          - peteches_vpn
+        match-destinations:
+          - any
+        match-recursive-only: no
+    - name: default
+      class: IN
+      options:
+        match-clients:
+          - any
+        match-destinations:
+          - any
+        match-recursive-only: no
+      zones:
+        - name: peteches.co.uk
+          options:
+            # generic options
+            goptions:
+              serial-update-method: unixtime
+            # slave options
+            soptions:
+              masters:
+                - bind_masters
+            # master options
+            moptions:
+              file: peteches.co.uk.d/peteches.co.uk
+              auto-dnssec: maintain
+              inline-signing: yes
+              allow-update:
+                - "none"
+        - name: petemccabe.gb.net
+          options:
+            goptions:
+              serial-update-method: unixtime
+            moptions:
+              file: petemccabe.gb.net.d/petemccabe.gb.net
+              allow-update:
+                - "none"
+            soptions:
+              masters:
+                - bind_masters
+        - name: milliespie.com
+          options:
+            goptions:
+              serial-update-method: unixtime
+            moptions:
+              file: milliespie.com.d/milliespie.com
+              allow-update:
+                - "none"
+            soptions:
+              masters:
+                - bind_masters
+        - name: milliespie.co.uk
+          options:
+            goptions:
+              serial-update-method: unixtime
+            moptions:
+              file: milliespie.co.uk.d/milliespie.co.uk
+              allow-update:
+                - "none"
+            soptions:
+              masters:
+                - bind_masters
+        - name: start64.co.uk
+          options:
+            goptions:
+              serial-update-method: unixtime
+            moptions:
+              file: start64.co.uk.d/start64.co.uk
+              allow-update:
+                - "none"
+            soptions:
+              masters:
+                - bind_masters

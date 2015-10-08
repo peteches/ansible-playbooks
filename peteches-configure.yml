@@ -6,3 +6,16 @@
 
   roles:
       - {role: s_dns, tags: ['dns', 'master']}
+
+- hosts: xen_servers
+  remote_user: peteches
+  sudo: yes
+  gather_facts: true
+
+  tags:
+    - xen
+  roles:
+    - a_dnsmasq
+    - a_kickstarts
+    - a_tftboot
+

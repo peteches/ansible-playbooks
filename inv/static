@@ -1,5 +1,28 @@
+[vpn_servers]
+vpn.peteches.co.uk
+
+[owncloud]
+owncloud.vm.peteches.co.uk ansible_ssh_host=192.168.122.100
+
+# Xen
+[domus]
+owncloud.vm.peteches.co.uk
+
 [xen_servers]
 xen.peteches.co.uk ansible_ssh_port=24
 
-[vpn_servers]
-vpn.peteches.co.uk
+# Digital Ocean
+[droplets]
+mi-go.peteches.co.uk
+ithaqua.peteches.co.uk ansible_ssh_host=178.62.174.22
+old-one.peteches.co.uk
+
+[bind_slaves]
+ithaqua.peteches.co.uk ansible_ssh_host=178.62.174.22
+
+[bind_masters]
+old-one.peteches.co.uk
+
+[bind_servers:children]
+bind_slaves
+bind_masters

@@ -19,3 +19,11 @@
     - a_kickstarts
     - a_tftboot
 
+- hosts: localhost
+  remote_user: peteches
+  sudo: no
+  gather_facts: true
+  tags:
+    - zsh
+  roles:
+    - a_zsh

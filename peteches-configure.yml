@@ -24,6 +24,7 @@
   sudo: no
   gather_facts: true
   tags:
-    - zsh
+    - localhost
   roles:
-    - a_zsh
+    - { role: a_zsh, tags: zsh }
+    - { role: a_tmux, tags: tmux }

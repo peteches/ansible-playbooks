@@ -28,3 +28,4 @@
   roles:
     - { role: a_zsh, tags: zsh }
     - { role: a_tmux, tags: tmux }
+    - { role: a_vim, tags: vim }

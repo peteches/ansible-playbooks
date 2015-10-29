@@ -1,0 +1,8 @@
+---
+
+- hosts: syslog.start64.co.uk
+  remote_user: root
+  become: no
+
+  roles:
+    - s_vpn

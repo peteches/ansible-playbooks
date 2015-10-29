@@ -1,0 +1,20 @@
+  - name: fedena-web
+    fqdn: fedena-web.ghosiaacadamy.co.uk
+    ram: 1024
+    vcpus: 1
+    bootorder: cn
+    graphics: 1
+    bios: seabios
+    vifs:
+      - type: ioemu
+        bridge: virbr0
+        model: e1000
+    disks:
+      - format: raw
+        vdev: xvda
+        access: rw
+        source: /dev/vg_xen/fedena-web
+    vfbs:
+      - vncunused: 1
+        vnclisten: "{{ ansible_tun0.ipv4.address }}"
+        type: vnc

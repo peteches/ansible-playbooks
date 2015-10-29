@@ -1,0 +1,13 @@
+---
+
+nspawn_containers:
+  - name: peteches_vpn
+    machine: vpn
+    exec:
+      boot: off
+      parameters: '/usr/sbin/openvpn --cd /etc/openvpn --config ./server.conf'
+    files:
+      readonly: "on"
+      bindreadonly: "{{vpn_configdir}}/peteches_vpn:/etc/openvpn"
+    network:
+      port: 1194

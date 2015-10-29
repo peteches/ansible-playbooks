@@ -1,0 +1,13 @@
+---
+
+networks:
+  "build":
+    cidr: 10.8.1.0/24
+    gateway: 10.8.1.1
+    dns:
+      - 10.8.1.1
+  "peteches_vpn":
+    cidr: 10.8.2.0/24
+    gateway: 10.8.2.1
+    dns:
+      - 10.8.2.1

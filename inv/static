@@ -1,5 +1,12 @@
+[misc]
+localhost ansible_connection=local ansible_python_interpreter=/usr/bin/python2
+
+[start64]
+syslog.start64.co.uk
+
 [vpn_servers]
 vpn.peteches.co.uk
+syslog.start64.co.uk
 
 [owncloud]
 owncloud.vm.peteches.co.uk ansible_ssh_host=192.168.122.100

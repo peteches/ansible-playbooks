@@ -19,6 +19,16 @@
     - a_kickstarts
     - a_tftboot
 
+- hosts: domus
+  remote_user: peteches
+  sudo: yes
+  gather_facts: false
+
+  tags:
+    - domus
+  roles:
+    - s_build_server
+
 - hosts: localhost
   remote_user: peteches
   sudo: no
@@ -26,6 +36,12 @@
   tags:
     - localhost
   roles:
-    - { role: a_zsh, tags: zsh }
-    - { role: a_tmux, tags: tmux }
-    - { role: a_vim, tags: vim }
+    - s_workstation
+
+# - hosts: owncloud
+#   remote_user: peteches
+#   sudo: yes
+#   gather_facts: true
+
+#   roles:
+    # - s_owncloud

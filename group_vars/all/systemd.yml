@@ -1,0 +1,4 @@
+---
+
+systemd_user_dir: ~/.config/systemd/user
+systemd_user_default_wants_dir: "{{systemd_user_dir}}/default.target.wants"

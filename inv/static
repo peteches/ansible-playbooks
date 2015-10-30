@@ -1,15 +1,8 @@
-[personal]
-nyarlothotep.peteches.co.uk ansible_connection=local ansible_python_interpreter=/usr/bin/python2
-
 [start64]
 syslog.start64.co.uk
 
-[work]
-yog-sothoth.peteches.co.uk ansible_connection=local
-
-[workstations:children]
-work
-personal
+[workstations]
+localhost ansible_connection=local ansible_python_interpreter=/usr/bin/python2
 
 [vpn_servers]
 vpn.peteches.co.uk

@@ -15,9 +15,7 @@
   tags:
     - xen
   roles:
-    - a_dnsmasq
     - a_kickstarts
-    - a_tftboot
 
 - hosts: domus
   remote_user: peteches
@@ -29,12 +27,12 @@
   roles:
     - s_build_server
 
-- hosts: localhost
+- hosts: workstations
   remote_user: peteches
   sudo: no
   gather_facts: true
   tags:
-    - localhost
+    - workstation
   roles:
     - s_workstation
 

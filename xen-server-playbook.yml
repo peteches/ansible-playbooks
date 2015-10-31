@@ -1,0 +1,12 @@
+---
+
+- hosts: xen_servers
+  remote_user: peteches
+  sudo: yes
+  gather_facts: true
+
+  tags:
+    - xen
+  roles:
+    - a_kickstarts
+

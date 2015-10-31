@@ -1,0 +1,11 @@
+---
+
+- hosts: domus
+  remote_user: peteches
+  sudo: yes
+  gather_facts: false
+
+  tags:
+    - domus
+  roles:
+    - s_build_server

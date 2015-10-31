@@ -1,0 +1,9 @@
+---
+
+- hosts: bind_servers
+  remote_user: peteches
+  sudo: yes
+
+  roles:
+      - {role: s_dns, tags: ['dns', 'master']}
+

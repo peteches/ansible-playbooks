@@ -1,0 +1,10 @@
+---
+
+- hosts: workstations
+  remote_user: peteches
+  sudo: no
+  gather_facts: true
+  tags:
+    - workstation
+  roles:
+    - s_workstation

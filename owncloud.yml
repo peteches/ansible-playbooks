@@ -1,0 +1,9 @@
+---
+
+- hosts: localhost
+
+  gather_facts: False
+
+
+  roles:
+    - s_owncloud

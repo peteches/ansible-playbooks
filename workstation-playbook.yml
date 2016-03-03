@@ -1,8 +1,8 @@
 ---
 
 - hosts: workstations
-  remote_user: peteches
-  sudo: no
+  become_user: peteches
+  become: true
   gather_facts: true
   tags:
     - workstation

@@ -1,10 +1,19 @@
 ---
 
 - hosts: workstations
-  remote_user: peteches
+  become_user: root
   become: true
   gather_facts: false
+  vars:
+    e_home_users:
+      - name: peteches
+        groups: wheel 
+        createhome: yes
+        shell: /usr/bin/zsh
+        state: present
+        password: $6$rounds=656000$ZyIeDzuuXOQDPZYo$rU4o2j5yQ7hFo1HUsnVqlhEkNFDt4Csog317xFdfdpN4NFjHzrCtzfp9dBA50xvOyWeNHQxZ1ai1Pa7N5se0T.
   roles:
     - e_home
 
 - include: workstation-playbook.yml
+

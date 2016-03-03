@@ -5,6 +5,6 @@
   become: true
   gather_facts: false
   roles:
-    - e_skybet
+    - e_home
 
 - include: workstation-playbook.yml

@@ -1,0 +1,32 @@
+---
+
+- hosts: workstations
+  become_user: root
+  become: true
+  gather_facts: false
+  vars:
+    e_employer_name: dwp
+    e_employer_facts:
+      a_git_author: pete 'Peteches' McCabe
+      a_git_email: pete.mccabe@uk.ibm.com
+      a_ssh_config:
+        - pattern: Host *.roundfoundry.tech
+          priority: 100
+          directives:
+            User: pmccabe
+        - pattern: Host *.itsshared.net
+          priority: 100
+          directives:
+            User: pmccabe
+    e_employer_users:
+      - name: peteches
+        groups: wheel
+        createhome: yes
+        shell: /usr/bin/zsh
+        state: present
+        password: $6$rounds=656000$ZyIeDzuuXOQDPZYo$rU4o2j5yQ7hFo1HUsnVqlhEkNFDt4Csog317xFdfdpN4NFjHzrCtzfp9dBA50xvOyWeNHQxZ1ai1Pa7N5se0T.
+  roles:
+    - e_employer
+
+- include: workstation-playbook.yml
+

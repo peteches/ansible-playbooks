@@ -1,5 +1,7 @@
 ---
 
 - hosts: workstations
+  become_user: "{{ user| default('peteches')}}"
+  become: True
   roles:
     - "{{ role }}"

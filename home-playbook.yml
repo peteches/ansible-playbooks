@@ -7,6 +7,13 @@
   vars:
     e_employer_name: home
     e_employer_facts:
+      a_dev_dir: "{{ a_dev_base_dir }}/personal"
+      a_dev_repos:
+        - https://github.com/peteches/tmux-continuum
+        - https://github.com/peteches/ansible-playbooks
+        - https://github.com/peteches/tmux-resurrect
+      a_zsh_cdpaths:
+        - "{{ a_dev_base_dir }}/personal"
       a_git_author: pete 'Peteches' McCabe
       a_git_email: pete@peteches.co.uk
       a_ssh_config:

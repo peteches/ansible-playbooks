@@ -1,9 +1,9 @@
 ---
 
 - hosts: workstations
-  become_user: peteches
+  become_user: pmc61
   become: true
-  gather_facts: false
+  gather_facts: true
   roles:
     - e_skybet
 

@@ -1,7 +1,6 @@
 ---
 
 - hosts: workstations
-  become_user: peteches
   become: true
   gather_facts: true
   tags:

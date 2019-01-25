@@ -1,0 +1,26 @@
+---
+
+- include: "{{ansible_pkg_mgr}}.yml"
+
+- include: pip.yml
+
+- name: ensure {{vim_dir}} exists
+  file: dest="{{vim_dir}}"
+        state=directory
+
+
+- name: Adding rc templates
+  template: dest="{{vim_dir}}/{{item}}"
+            src={{item}}.j2
+  with_items: "{{vim_config_templates}}"
+
+- name: Adding other configs
+  copy: dest={{vim_dir}}
+        src={{item}}
+  with_items: "{{vim_config_dirs}}"
+
+- name: Install plugins
+  command: nvim --headless -c ':PlugInstall' -c ':qa'
+
+- name: update remote plugins
+  command: nvim --headless -c ':UpdateRemotePlugins' -c ':qa'

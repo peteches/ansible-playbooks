@@ -1,0 +1,14 @@
+---
+
+dependencies:
+  - a_fonts
+  - a_git
+  - a_ruby
+  - a_zsh
+  - a_tmux
+  - a_vim
+  - a_ssh
+  - a_firefox
+  - { role: 'a_tor', when: ansible_local.employer.name == 'home' }
+  - { role: 'a_kde', when: ansible_system == 'Linux' }
+  - { role: 'a_iterm', when: ansible_system == 'Darwin' }

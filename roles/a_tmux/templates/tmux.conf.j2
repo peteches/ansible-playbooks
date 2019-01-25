@@ -1,0 +1,46 @@
+# {{ ansible_managed }}
+# set colourscheme
+source {{tmux_dir}}/colours/{{tmux_colourscheme}}
+
+#############
+#  Options  #
+#############
+
+{%for opt, val in tmux_global_opts.items()%}
+set-option -g {{opt}} {{val}}
+{%endfor%}
+
+##################
+#  Key Bindings  #
+##################
+
+# unbind unnecessary default bindings.
+{%for binding in tmux_unbindings%}
+unbind-key {{binding}}
+{%endfor%}
+
+# global bindings
+{%for binding, value in tmux_global_bindings.items()%}
+bind-key {{binding}} {{value}}
+{%endfor%}
+
+# bindings for key tables
+{% for table, bindings in tmux_table_bindings.items()%}
+# bindings for {{ table }}
+{% for binding, value in bindings.items()%}
+bind-key -t {{table}} {{binding}} {{value}}
+{%endfor%}
+{%endfor%}
+
+# initialise first session
+new-session -s {{ ansible_hostname }}
+
+############################
+#  Source files / plugins  #
+############################
+
+# load plugins
+{%for plugin in tmux_submodules%}
+run {{tmux_dir}}/plugins/{{plugin|basename}}/*.tmux
+{%endfor%}
+

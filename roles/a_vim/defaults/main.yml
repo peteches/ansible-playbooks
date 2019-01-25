@@ -1,0 +1,203 @@
+---
+
+vim_dir: ~/.config/nvim
+
+vim_colour_dir: "{{vim_dir}}/colors"
+vim_plugin_dir: "{{vim_dir}}/plugged"
+
+vim_plugin_deps:
+  portage:
+    - dev-python/jedi
+    - dev-python/pep8
+    - app-text/pandoc
+  apt:
+    - python-jedi
+    - python3-jedi
+    - pep8
+    - python3-pep8
+  dnf:
+    - python-jedi
+    - python3-jedi
+    - python-pep8
+    - python3-pep8
+  homebrew:
+    - neovim
+    - pyenv-virtualenv
+  pip:
+    - pycodestyle
+    - jedi
+    - neovim
+
+vim_config_dirs:
+  - autoload
+  - ftdetect
+  - ftplugin
+  - indent
+  - skel
+  - spell
+
+vim_config_templates:
+  - init.vim
+
+vim_plugin_repos:
+  - mileszs/ack.vim
+  - w0rp/ale
+  - pearofducks/ansible-vim
+  - ctrlpvim/ctrlp.vim
+  - zchee/deoplete-jedi
+  - fishbullet/deoplete-ruby
+  - Shougo/deoplete.nvim
+  - Shougo/neco-vim
+  - kassio/neoterm
+  - equalsraf/neovim-gui-shim
+  - FuDesign2008/randomColor.vim
+  - AndrewRadev/switch.vim
+  - vim-airline/vim-airline
+  - tpope/vim-capslock
+  - dougireton/vim-chef
+  - tpope/vim-commentary
+  - ryanoasis/vim-devicons
+  - tpope/vim-dispatch
+  - tpope/vim-eunuch
+  - tommcdo/vim-exchange
+  - tpope/vim-fugitive
+  - johngrib/vim-game-code-break
+  - airblade/vim-gitgutter
+  - vasconcelloslf/vim-interestingwords
+  - Glench/Vim-Jinja2-Syntax
+  - rogerz/vim-json
+  - pbrisbin/vim-mkdir
+  - tpope/vim-obsession
+  - tpope/vim-repeat
+  - tpope/vim-sleuth
+  - tpope/vim-speeddating
+  - tpope/vim-surround
+  - tpope/vim-unimpaired
+  - mrk21/yaml-vim
+
+vim_colour_repos:
+  - vim-scripts/0x7A69_dark.vim
+  - vim-scripts/256-grayvim
+  - vim-scripts/256-jungle
+  - vim-scripts/abbott.vim
+  - romainl/Apprentice
+  - vim-scripts/AtelierDune
+  - stephanedemotte/beekai
+  - benjaminwhite/Benokai
+  - vim-scripts/blacklight
+  - baskerville/bubblegum
+  - vim-scripts/burnttoast256
+  - vim-scripts/BusyBee
+  - vim-scripts/C64.vim
+  - vim-scripts/calmar256-lightdark.vim
+  - ChasingLogic/ChasingLogic-colorscheme-vim
+  - GertjanReynaert/cobalt2-vim-theme
+  - changyuheng/color-scheme-holokai-of-vim
+  - vim-scripts/colorful256.vim
+  - vim-scripts/desertEx
+  - sandeepsinghmails/Dev_Delight
+  - vim-scripts/earendel
+  - vim-scripts/ecostation
+  - MaxSt/FlatColor
+  - romainl/flattened
+  - blerins/flattown
+  - farseer90718/flattr.vim
+  - john2x/flatui.vim
+  - noah/fu
+  - nowk/genericdc
+  - vim-scripts/Gentooish
+  - vim-scripts/greenvision
+  - vim-scripts/grishin-color-scheme
+  - morhetz/gruvbox
+  - stulzer/heroku-colorscheme
+  - vim-scripts/icansee.vim
+  - cocopon/iceberg.vim
+  - vim-scripts/industry.vim
+  - gmarik/ingretu
+  - vim-scripts/inkpot
+  - duythinht/inori
+  - cdmedia/itg_flat_vim
+  - nanotech/jellybeans.vim
+  - guns/jellyx.vim
+  - itchyny/landscape.vim
+  - vim-scripts/leo256
+  - vim-scripts/less.vim
+  - vim-scripts/lettuce.vim
+  - vim-scripts/lilypink
+  - gilsondev/lizard
+  - lodestone/lodestone.vim
+  - yamafaktory/lumberjack.vim
+  - goatslacker/mango.vim
+  - vim-scripts/miko
+  - tomasr/molokai
+  - mopp/mopkai.vim
+  - mrkn/mrkn256.vim
+  - gregsexton/Muon
+  - mtglsk/mushroom
+  - croaker/mustang-vim
+  - SacredCrumb/neonwave.vim
+  - trapd00r/neverland-vim-theme
+  - trevordmiller/nova-vim
+  - vim-scripts/pink
+  - svjunic/RadicalGoodSpeed.vim
+  - vim-scripts/rdark-terminal
+  - CruizeMissile/Revolution.vim
+  - junegunn/seoul256.vim
+  - shawncplus/skittles_berry
+  - vim-scripts/SlateDark
+  - ajh17/Spacegray.vim
+  - alexjgriffin/sprinkles
+  - vim-scripts/strange
+  - vim-scripts/swamplight
+  - vim-scripts/synic.vim
+  - vim-scripts/tchaba
+  - vim-scripts/The-Vim-Gardener
+  - vim-scripts/twilight256.vim
+  - vim-scripts/Ubloh-Color-Scheme
+  - lxmzhv/vim
+  - baverman/vim-babymate256
+  - duythinht/vim-coffee
+  - MichaelMalick/vim-colors-bluedrake
+  - cseelus/vim-colors-clearance
+  - antlypls/vim-colors-codeschool
+  - reedes/vim-colors-pencil
+  - altercation/vim-colors-solarized
+  - atelierbram/vim-colors_atelier-schemes
+  - Lokaltog/vim-distinguished
+  - larssmit/vim-getafe
+  - whatyouhide/vim-gotham
+  - noahfrederick/vim-hemisu
+  - freeo/vim-kalisi
+  - zeis/vim-kolor
+  - andrwb/vim-lapis256
+  - jonathanfilip/vim-lucius
+  - fxn/vim-monochrome
+  - sickill/vim-monokai
+  - justincampbell/vim-railscasts
+  - chankaward/vim-railscasts-theme
+  - idbrii/vim-sandydune
+  - adlawson/vim-sorcerer
+  - marlun/vim-starwars
+  - sickill/vim-sunburst
+  - dsolstad/vim-wombat256i
+  - yantze/vt_tmux
+  - wellsjo/wells-colorscheme.vim
+  - carlson-erik/wolfpack
+  - jnurmine/Zenburn
+
+vim_dirs:
+  - ~/.vim
+  - ~/.vim/bundle
+  - ~/.vim/indent
+  - ~/.vim/spell
+  - ~/.vim/nerdtree_plugin
+  - ~/.vim/colors
+  - ~/.vim/ftplugin
+  - ~/.vim/autoload
+  - ~/.vim/ftdetect
+  - ~/.vim/UltiSnips
+  - ~/.vim/skel
+  - ~/.vim/snips
+  - ~/.vim/after
+  - ~/.vim/after/plugin
+  - ~/.vim/syntax

@@ -1,0 +1,5 @@
+---
+
+- include: install.yml
+- include: gather_info.yml
+- include: configure.yml

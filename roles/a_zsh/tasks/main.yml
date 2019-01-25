@@ -1,0 +1,56 @@
+---
+
+- include: "{{ ansible_pkg_mgr }}.yml"
+
+- name: Adding main zshrc config
+  template: dest=~/.zshrc
+            src=zshrc
+            mode=0644
+
+- name: Adding dir for custom zsh
+  file: dest="{{ a_zsh_customdir }}"
+        state=directory
+        mode=0755
+
+- name: Adding functions dir for autoloading
+  file: dest="{{ a_zsh_customdir }}/functions"
+        state=directory
+        mode=0755
+
+- name: Cloning antigen repo
+  git: clone=yes
+       dest="{{a_zsh_antigen_dir}}"
+       repo=https://github.com/zsh-users/antigen.git
+
+- name: Adding zsh configs
+  template: dest="{{ a_zsh_customdir }}/{{item}}"
+            src="{{ item }}"
+            mode=0644
+  with_items: "{{a_zsh_configs}}"
+
+- name: Adding employer configs
+  template: dest="{{ a_zsh_customdir }}/{{ ansible_local['employer']['name'] }}.zsh"
+            src="{{ ansible_local['employer']['name'] }}.zsh"
+            mode=0644
+  when: ansible_local['employer']['name']
+  ignore_errors: yes
+
+- name: Adding zsh functions
+  copy: dest="{{ a_zsh_customdir }}/"
+        src=functions
+        mode=0644
+
+- name: Adding personal scripts
+  copy: dest="{{a_zsh_customdir }}/"
+        src="scripts"
+        mode=0755
+
+- name: symlink scripts to ${HOME}/bin
+  file: state=link
+        src="{{a_zsh_customdir}}/scripts"
+        dest="${HOME}/bin"
+
+- name: Adding list of favorite zsh themes
+  template: dest="{{a_zsh_customdir}}/zsh_themes"
+            src=zsh_themes.j2
+            mode=0644

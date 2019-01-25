@@ -1,0 +1,5 @@
+---
+
+- name: Install lxmz libs to extract tarballs
+  yum: name=xz
+       state=latest

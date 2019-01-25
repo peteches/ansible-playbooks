@@ -1,0 +1,9 @@
+---
+
+- name: find pip executable
+  shell: which pip3 || which pip
+  register: pipbin
+
+- name: Installing packages required for some plugins
+  pip: name={{vim_plugin_deps.pip}}
+            state=present

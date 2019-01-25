@@ -1,0 +1,127 @@
+---
+
+a_zsh_customdir: ~/.zsh_custom
+a_zsh_antigen_dir: ~/.antigen-repo
+
+a_zsh_options:
+  - appendhistory
+  - autocd
+  - automenu
+  - extendedglob
+  - multiios
+  - nomatch
+  - pipefail
+  - printexitvalue
+
+a_zsh_cdpaths:
+  - ~/area_51/*
+  - ~/area_51/*/*
+
+a_zsh_path_dirs:
+  - ${HOME}/bin
+  - /usr/local/bin
+  - /usr/bin
+  - /bin
+  - /usr/sbin
+  - /sbin
+  - /usr/local/sbin
+
+a_zsh_configs:
+  - 00_env.zsh
+  - 99_antigen.zsh
+  - aliases.zsh
+  - bindkey.zsh
+  - bindkeys.zsh
+  - completion.zsh
+  - example.zsh
+  - opts.zsh
+  - paths.zsh
+  - traps.zsh
+  - zstyle.zsh
+
+a_zsh_plugins:
+ - adolfoabegg/browse-commit
+ - colorize
+ - common-aliases
+ - copydir
+ - copyfile
+ - cp
+ - djui/alias-tips
+ - fedora
+ - git
+ - jsontools
+ - sudo
+ - systemd
+ - tmux
+ - vagrant
+ - vi-mode
+ - web-search
+ - zsh-users/zsh-syntax-highlighting
+ - zsh_reload
+
+a_zsh_themes:
+  - adben
+  - af-magic
+  - afowler
+  - agnoster
+  - alanpeabody
+  - amuse
+  - apple
+  - arrow
+  - avit
+  - awesomepanda
+  - bira
+  - blinks
+  - bureau
+  - candy
+  - clean
+  - cloud
+  - crcandy
+  - crunch
+  - cypher
+  - dallas
+  - darkblood
+  - daveverwer
+  - dieter
+  - dogenpunk
+  - dpoggi
+  - dstufft
+  - duellj
+  - eastwood
+  - edvardm
+  - essembeh
+  - evan
+  - example
+  - fishy
+  - flazz
+  - fletcherm
+  - fox
+  - frisk
+  - gnzh
+  - humza
+  - intheloop
+  - jonathan
+  - josh
+  - jreese
+  - jtriley
+  - juanghurtado
+  - junkfood
+  - kardan
+  - kennethreitz
+  - kphoen
+  - lambda
+  - linuxonly
+  - mikeh
+  - mortalscumbag
+  - murilasso
+  - re5et
+  - rkj
+  - simonoff
+  - smt
+  - Soliah
+  - sonicradish
+  - sorin
+  - sporty_256
+  - takashiyoshida
+  - xiong-chiamiov-plus
+  - ys

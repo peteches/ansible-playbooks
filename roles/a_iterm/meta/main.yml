@@ -1,0 +1,6 @@
+---
+
+dependencies:
+  - a_tmux
+  - a_zsh
+  - a_fonts

@@ -1,0 +1,62 @@
+---
+
+- include: "{{ansible_pkg_mgr}}.yml"
+
+- name: create Profile Dir
+  file: path={{a_firefox_profile_dir}}
+        state=directory
+
+- name: Mark all other profiles as not default.
+  lineinfile: dest={{a_firefox_config_dir}}/profiles.ini
+              regexp="Default=1"
+              state=absent
+  when: a_firefox_profile_default == 1
+
+- name: Add Profile to profiles.ini
+  ini_file: dest={{a_firefox_config_dir}}/profiles.ini
+            section=Profile0
+            option={{item.key}}
+            value={{item.value}}
+  with_dict: "{{a_firefox_profile_ini_opts}}"
+
+- name: remove whitespace around = in profiles.ini
+  replace: dest={{a_firefox_config_dir}}/profiles.ini
+           regexp=" = "
+           replace="="
+
+- name: Add about:config opts for firefox
+  template: dest={{a_firefox_profile_dir}}/user.js
+            src=user.js.j2
+
+- name: create Extensions  Dir
+  file: path={{a_firefox_extension_dir}}
+        state=directory
+
+- name: looking for existing extensions
+  shell: ls -d {{a_firefox_extension_dir|quote}}/* | xargs -I '{}' basename '{}'
+  register: existing_extensions
+
+- name: Add extensions
+  copy: dest="{{a_firefox_extension_dir}}/{{ item | basename }}"
+        src="{{ item }}"
+  when: "{{ item|basename not in existing_extensions.stdout_lines }}"
+  with_fileglob: "extensions/*"
+
+- name: Create extension dir for unpacked extensions
+  file: dest={{a_firefox_extension_dir}}/{{item}}
+        state=directory
+  with_items: "{{a_firefox_extensions_to_unpack}}"
+
+- name: Extract xpi incompatible extensions
+  unarchive: copy=no
+             creates={{a_firefox_extension_dir}}/{{item}}/install.rdf
+             dest={{a_firefox_extension_dir}}/{{item}}
+             src={{a_firefox_extension_dir}}/{{item}}.xpi
+  with_items: "{{a_firefox_extensions_to_unpack}}"
+
+- name: Remove archive for unpacked extensions
+  file: dest={{a_firefox_extension_dir}}/{{item}}.xpi
+        state=absent
+  with_items: "{{a_firefox_extensions_to_unpack}}"
+
+- include: plugins.yml

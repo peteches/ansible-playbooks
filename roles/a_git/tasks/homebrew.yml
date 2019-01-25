@@ -1,0 +1,6 @@
+---
+
+- name: Install git related software
+  homebrew: name={{ a_git_software.homebrew }}
+            state=latest
+  become: false

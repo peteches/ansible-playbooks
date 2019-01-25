@@ -1,0 +1,219 @@
+"Setup Plugins: {{ '{{{'  }}
+call plug#begin('{{vim_plugin_dir}}')
+" Install plugins {{ '{{{' }}
+{% for plugin in vim_plugin_repos %}
+Plug '{{plugin}}'
+{% endfor %}
+" {{ '}}}' }}
+" Treat colors from repos as plugins {{ '{{{' }}
+{% for colorscheme in vim_colour_repos %}
+Plug '{{ colorscheme }}'
+{% endfor %}
+" {{ '}}}' }}
+call plug#end()
+" {{ '}}}' }}
+
+" Functions {{ '{{{' }}
+
+	function! TrimWhiteSpace() " {{ '{{{' }}
+		%s/\s\+$//e
+	endfunction
+	" {{ '}}}' }}
+
+	function! IsBufferBlank() " {{ '{{{' }}
+		if getline(1, '$') == [''] && ! &mod
+			return 1
+		else
+			return 0
+		endif
+	endfunction
+	" {{ '}}}' }}
+
+	function! OpenRC() " {{ '{{{' }}
+		if IsBufferBlank()
+			:edit $MYVIMRC
+		else
+			:vnew $MYVIMRC
+		endif
+	endfunction
+	" {{ '}}}' }}
+
+" {{ '}}}' }}
+
+"Plugin Settings {{ '{{{' }}
+	"Deoplete {{ '{{{' }}
+	let g:deoplete#enable_at_startup = 1
+	" {{ '}}}' }}
+
+	"Ack {{ '{{{' }}
+	let g:ack_use_dispatch = 1
+	" {{ '}}}' }}
+
+	"Airline {{ '{{{' }}
+	let g:airline#extensions#tabline#enabled = 1
+	let g:airline_powerline_fonts = 1
+	" {{ '}}}' }}
+
+	" CtrlP {{ '{{{' }}
+	let g:ctrlp_show_hidden = 1
+	" {{ '}}}' }}
+
+	" Syntastic {{ '{{{' }}
+	let g:syntastic_python_checkers = ['pycodestyle']
+	" {{ '}}}' }}
+
+	" Switch {{ '{{{' }}
+	let g:switch_mapping = "-"
+	let g:switch_custom_definitions =
+	\ [
+		\	['yes', 'no'],
+		\	['true', 'false'],
+		\	['left', 'right'],
+		\	['on', 'off'],
+		\	['||', '&&'],
+		\	['udp', 'tcp'],
+		\	['low', 'medium', 'high'],
+		\ ]
+	" {{ '}}}' }}
+
+	" neoterm {{ '{{{' }}
+	let g:neoterm_default_mod = 'vertical'
+	let g:neoterm_automap_keys = '<Leader>tt'
+	let g:neoterm_autoscroll = 1
+	" {{ '}}}' }}
+
+	" RandomColour settings {{ '{{{' }}
+	let g:favorite_color_schemes = [
+		\ 'strange',
+		\ 'seoul256',
+	\ ]
+	" {{ '}}}' }}
+" {{ '}}}' }}
+
+"General settings {{ '{{{' }}
+let g:python3_host_prog = '/Users/pmc01/.pyenv/versions/neovim3/bin/python'
+set inccommand=split
+set list
+set listchars=eol:§,tab:▸›,extends:»,precedes:«,nbsp:•,trail:•
+set mouse=a
+set nohlsearch
+set noshowmode
+set number
+set relativenumber
+set shada=%0,'10,<1000,h,n~/.config/nvim/shada
+set showcmd
+set wildignore=build,*.pyc,venv
+set wildmode=longest:full
+" {{ '}}}' }}
+
+"Backup settings {{ '{{{' }}
+if filewritable("$HOME/.vimbackups/") != 2
+	call system("mkdir -p $HOME/.vimbackups")
+endif
+set backup
+set backupdir=$HOME/.vimbackups
+set backupcopy=auto
+set writebackup
+" {{ '}}}' }}
+
+"Key Mappings {{ '{{{' }}
+	"Window movements {{ '{{{' }}
+	{% for mapping in [ 'H', 'h', 'J', 'j', 'K', 'k', 'L', 'l' ]: -%}
+	inoremap <C-{{mapping}}> <Esc><C-W>{{mapping}}
+	noremap <C-{{mapping}}> <Esc><C-W>{{mapping}}
+	tnoremap <C-{{mapping}}> <Esc><C-W>{{mapping}}
+	{% endfor %}
+	" {{ '}}}' }}
+
+	" escapeisms {{ '{{{' }}
+	tnoremap <Esc> <C-\><C-n>
+	tnoremap jj <C-\><C-n>
+	inoremap jj <Esc>
+	" {{ '}}}' }}
+
+	" swap : and ; {{ '{{{' }}
+	nnoremap : ;
+	nnoremap ; :
+
+	vnoremap : ;
+	vnoremap ; :
+	" {{ '}}}' }}
+
+	"Visual block far more useful than regular visual mode {{ '{{{' }}
+	nnoremap v <C-v>
+	nnoremap <C-v> v
+	" {{ '}}}' }}
+
+	" make <c-y> <c-e> more useful by doing whole words {{ '{{{' }}
+	inoremap <expr> <c-y> matchstr(getline(line('.')-1), '\%' . virtcol('.') . 'v\%(\k\+\\|.\)')
+	inoremap <expr> <c-e> matchstr(getline(line('.')+1), '\%' . virtcol('.') . 'v\%(\k\+\\|.\)')
+	" {{ '}}}' }}
+
+	" Git fugitive mappings {{ '{{{' }}
+	nnoremap <LEADER>gb :Gblame w<CR>
+	nnoremap <LEADER>gd :Gdiff<SPACE>
+	nnoremap <LEADER>gs :Gstatus<CR>
+	nnoremap <LEADER>gc :Gcommit -v<CR>
+	nnoremap <LEADER>gl :Glog<CR>
+	nnoremap <LEADER>gr :Gread<CR>
+	nnoremap <LEADER>ge :Gedit<CR>
+	nnoremap <LEADER>gw :Gwrite<CR>
+	" {{ '}}}' }}
+
+	" neoterm mappings {{ '{{{' }}
+	nnoremap <silent> <leader>tl :TREPLSendLine<cr>
+	nnoremap <silent> <leader>tf :TREPLSendFile<cr>
+	vnoremap <silent> <leader>ts :TREPLSendSelection<cr>
+
+	nnoremap <silent> <leader>tc :call neoterm#close()<cr>
+	nnoremap <silent> <c-c> :call neoterm#kill()<cr>
+	" {{ '}}}' }}
+
+	nnoremap <Leader>er :call OpenRC()<CR>
+
+" {{ '}}}' }}
+
+" Autocmds {{ '{{{' }}
+if has("autocmd")
+
+	augroup WHITESPACE " {{ '{{{' }}
+		autocmd!
+		autocmd FileWritePre,FileAppendPre,FilterWritePre,BufWritePre * if match(expand('%'), 'fugitive://') != 0 | :call TrimWhiteSpace()
+	augroup END " {{ '}}}' }}
+
+	augroup MAN " {{ '{{{' }}
+		autocmd!
+		autocmd FileType man exe "set nolist colorcolumn=\"\" nonu"
+	augroup END " {{ '}}}' }}
+
+	augroup reload_rc " {{ '{{{' }}
+		autocmd!
+		autocmd BufWritePost $MYVIMRC source $MYVIMRC
+	augroup END " {{ '}}}' }}
+
+	augroup COLOURSCHEME " {{ '{{{' }}
+		autocmd!
+		autocmd VimEnter * RandomAll
+	augroup END " {{ '}}}' }}
+
+endif
+" {{ '}}}' }}
+
+" Colours {{ '{{{' }}
+
+	" Highlight 81st column {{ '{{{' }}
+	highlight ColorColumn ctermbg=235
+	call matchadd('ColorColumn', '\%81v', 100)
+	" {{ '}}}' }}
+
+	" Git conflict highlight {{ '{{{' }}
+	highlight DIFFHEAD ctermfg=1
+	highlight DIFFMIDDLE ctermfg=1
+	highlight DIFFBRANCH ctermfg=1
+
+	call matchadd('DIFFHEAD', '^<<<<<<< HEAD')
+	call matchadd('DIFFMIDDLE', '^=======')
+	call matchadd('DIFFBRANCH', '^>>>>>>>.*')
+	" {{ '}}}' }}
+
+" {{ '}}}' }}

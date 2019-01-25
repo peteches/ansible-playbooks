@@ -1,0 +1,15 @@
+---
+
+- name: Installing vim
+  homebrew: name=vim
+            state=latest
+  become: false
+
+- name: Add neovim tap
+  command: brew tap neovim/neovim
+  become: false
+
+- name: Installing packages required for some plugins
+  homebrew: name={{ vim_plugin_deps.homebrew }}
+            state=present
+  become: false

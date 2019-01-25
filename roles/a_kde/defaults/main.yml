@@ -1,0 +1,136 @@
+---
+
+a_kde_apps_dir: "~/.local/share"
+a_kde_config_dir: "~/.config/"
+
+a_kde_konsolerc:
+  - section: Desktop Entry
+    key: DefaultProfile
+    value: peteches.profile
+  - section: KonsoleWindow
+    key: ShowMenuBarByDefault
+    value: false
+  - section: TabBar
+    key: TabBarVisibility
+    value: AlwaysHideTabBar
+
+a_kde_konsole_shell_profile:
+  - section: Appearance
+    key: AntiAliasFonts
+    value:  True
+  - section: Appearance
+    key: BoldIntense
+    value:  False
+  - section: Appearance
+    key: ColorScheme
+    value:  DarkPastels
+  - section: Appearance
+    key: Font
+    value: InconsolataForPowerline NF,10,-1,5,57,0,0,0,0,0
+  - section: 'Encoding Options'
+    key: DefaultEncoding
+    value:  UTF-8
+  - section: General
+    key: Command
+    value:  /usr/bin/tmux -u2 new-session -As konsole
+  - section: General
+    key: Name
+    value:  peteches
+  - section: 'Interaction Options'
+    key: MouseWheelZoomEnabled
+    value:  False
+  - section: Scrolling
+    key: HistoryMode
+    value:  0
+  - section: Scrolling
+    key: ScrollBarPosition
+    value:  2
+  - section: 'Terminal Features'
+    key: FlowControlEnabled
+    value:  False
+
+a_kde_kwin:
+  rules:
+    - section: 1
+      key: Description
+      value: Settings for konsole
+    - section: 1
+      key: clientmachine
+      value: "{{ ansible_fqdn }}"
+    - section: 1
+      key: clientmachinematch
+      value: 0
+    - section: 1
+      key: maximizehoriz
+      value: true
+    - section: 1
+      key: maximizehorizrule
+      value: 2
+    - section: 1
+      key: maximizevert
+      value: true
+    - section: 1
+      key: maximizevertrule
+      value: 2
+    - section: 1
+      key: noborder
+      value: true
+    - section: 1
+      key: noborderrule
+      value: 2
+    - section: 1
+      key: wmclass
+      value: konsole
+    - section: 1
+      key: wmclasscomplete
+      value: false
+    - section: 1
+      key: wmclassmatch
+      value: 1
+    - section: General
+      key: count
+      value: 1
+    - section: General
+      key: ColorScheme
+      value: '[$d]'
+    - section: General
+      key: fixed
+      value: '[$d]'
+    - section: General
+      key: font
+      value: '[$d]'
+    - section: General
+      key: menuFont
+      value: '[$d]'
+    - section: General
+      key: smallestReadableFont
+      value: '[$d]'
+    - section: General
+      key: toolBarFont
+      value: '[$d]'
+    - section: General
+      key: widgetStyle
+      value: '[$d]'
+    - section: Icons
+      key: Theme
+      value: '[$d]'
+    - section: KDE
+      key: ColorScheme
+      value: '[$d]'
+    - section: KDE
+      key: widgetStyle
+      value: '[$d]'
+
+
+a_kde_keyboard_layout: gb
+
+a_kde_kxkb:
+  - section: Layout
+    key: LayoutList
+    value: 'gb,us'
+  - section: Layout
+    key: Options
+    value: caps:ctrl_modifier
+  - section: Layout
+    key: ShowLayoutIndicator 
+    value: 'True'

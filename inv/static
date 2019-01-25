@@ -2,7 +2,7 @@
 syslog.start64.co.uk
 
 [workstations]
-localhost ansible_connection=local ansible_python_interpreter=/usr/bin/python2
+localhost ansible_connection=local ansible_python_interpreter=/usr/local/bin/python
 
 [vpn_servers]
 vpn.peteches.co.uk

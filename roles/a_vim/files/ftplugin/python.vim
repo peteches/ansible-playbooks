@@ -8,3 +8,4 @@ setlocal softtabstop=4
 let b:dispatch = '%'
 
 nnoremap <buffer> <silent> <Leader>nt :call neoterm#do('pipenv run nose2')<cr>
+autocmd BufWritePre *.py execute ':Black'

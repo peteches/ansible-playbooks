@@ -43,6 +43,7 @@ vim_plugin_repos:
   - mileszs/ack.vim
   - w0rp/ale
   - pearofducks/ansible-vim
+  - ambv/black
   - ctrlpvim/ctrlp.vim
   - zchee/deoplete-jedi
   - fishbullet/deoplete-ruby
